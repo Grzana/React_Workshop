@@ -1,25 +1,35 @@
-var path = require('path');
+const path = require('path');
 
 module.exports = {
-    entry: "./js/app.js",
+    entry: './js/app.jsx',
     output: {
-        filename: "out.js",
-        path: path.resolve(__dirname, 'js')
+        path: path.resolve(__dirname, 'js'),
+        filename: 'out.js',
+        publicPath: 'js'
     },
-    mode: 'development',
-    watch: true,
     module: {
         rules: [
             {
-                test: /\.js$/,
+                test: /\.scss$/,
                 exclude: /node_modules/,
                 use: {
-                    loader: 'babel-loader',
+                    loader: ['style-loader', 'css-loader', 'sass-loader'],
                     options: {
-                        presets: ['es2015', 'stage-2', 'react']
+                        presets: [
+                            'es2015', 'stage-2', 'react'
+                        ]
                     }
                 }
             }
         ]
-    }
-}
+    },
+    devServer: {
+        port: 3004,
+        open: true,
+        contentBase: './'
+    },
+    plugins: [],
+    watch: true,
+    mode: 'development',
+    devtool: 'source-map'
+};
